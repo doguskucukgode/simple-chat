@@ -14,10 +14,10 @@ public class ServerApp {
     public void run() {
         try {
             serverSocket = new ServerSocket(AppConfig.SERVER_PORT);
-            ConnectionManager connectionManager = new ConnectionManager(serverSocket);
-            Thread connectionManagerThread = new Thread(connectionManager);
+            ServerConnectionManager serverConnectionManager = new ServerConnectionManager(serverSocket);
+            Thread connectionManagerThread = new Thread(serverConnectionManager);
             connectionManagerThread.start();
-            Thread inputManager = new Thread(new ServerInputManager(connectionManager));
+            Thread inputManager = new Thread(new ServerInputManager(serverConnectionManager));
             inputManager.start();
             inputManager.join();
         } catch (IOException | InterruptedException e) {

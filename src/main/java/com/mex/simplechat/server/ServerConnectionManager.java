@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class ConnectionManager implements Runnable {
+public class ServerConnectionManager implements Runnable {
 
-    private Logger logger = Logger.getLogger(String.valueOf(ConnectionManager.class));
+    private Logger logger = Logger.getLogger(String.valueOf(ServerConnectionManager.class));
 
     private ServerSocket serverSocket;
-    private List<ClientMessageHandler> clientList;
+    private List<UserMessageHandler> clientList;
 
-    public ConnectionManager(ServerSocket serverSocket) {
+    public ServerConnectionManager(ServerSocket serverSocket) {
         this.serverSocket = serverSocket;
         clientList = new ArrayList<>();
     }
@@ -24,8 +24,10 @@ public class ConnectionManager implements Runnable {
         while (!serverSocket.isClosed()) {
             try {
                 Socket client = serverSocket.accept();
-                ClientMessageHandler clientMessageHandler = new ClientMessageHandler(client, this);
-                clientList.add(clientMessageHandler);
+                UserMessageHandler userMessageHandler = new UserMessageHandler(client, this);
+                Thread userMessageHandlerThread = new Thread(userMessageHandler);
+                userMessageHandlerThread.start();
+                clientList.add(userMessageHandler);
 
             } catch (IOException e) {
                 logger.severe("Connection failed");
@@ -33,16 +35,16 @@ public class ConnectionManager implements Runnable {
         }
     }
 
-    void broadcastMessage(String message, ClientMessageHandler notNotifiedClient) {
-        for (ClientMessageHandler client : clientList) {
+    void broadcastMessage(String message, UserMessageHandler notNotifiedClient) {
+        for (UserMessageHandler client : clientList) {
             if (!client.equals(notNotifiedClient)) {
                 client.sendMessage(message);
             }
         }
     }
 
-    void removeUser(ClientMessageHandler clientMessageHandler) {
-        clientList.remove(clientMessageHandler);
+    void removeUser(UserMessageHandler userMessageHandler) {
+        clientList.remove(userMessageHandler);
     }
 
     public void disconnect() {

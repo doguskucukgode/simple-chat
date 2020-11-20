@@ -11,15 +11,15 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.logging.Logger;
 
-public class ClientMessageHandler implements Runnable {
+public class UserMessageHandler implements Runnable {
 
-    private Logger logger = Logger.getLogger(String.valueOf(ClientMessageHandler.class));
+    private Logger logger = Logger.getLogger(String.valueOf(UserMessageHandler.class));
     private Socket clientSocket;
-    private ConnectionManager server;
+    private ServerConnectionManager server;
     private PrintWriter sender;
     private String user;
 
-    public ClientMessageHandler(Socket clientSocket, ConnectionManager server) {
+    public UserMessageHandler(Socket clientSocket, ServerConnectionManager server) {
         this.clientSocket = clientSocket;
         this.server = server;
     }
@@ -39,10 +39,12 @@ public class ClientMessageHandler implements Runnable {
             String receivedMessage;
             do {
                 receivedMessage = reader.readLine();
-                String messageToBeSent = user + ":" + receivedMessage;
-                logger.info(messageToBeSent);
-                server.broadcastMessage(messageToBeSent, this);
-            } while (!receivedMessage.equals(AppConfig.EXIT_MESSAGE_CODE));
+                if (receivedMessage != null) {
+                    String messageToBeSent = user + ":" + receivedMessage;
+                    logger.info(messageToBeSent);
+                    server.broadcastMessage(messageToBeSent, this);
+                }
+            } while (receivedMessage != null);
             String userIsGoneMessage = String.format("User '%s' is gone..", user);
             server.broadcastMessage(userIsGoneMessage, this);
             logger.info(userIsGoneMessage);

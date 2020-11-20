@@ -18,6 +18,6 @@ public class ParameterChecker {
         } else if(parameters[0].indexOf(USER_PARAMETER_START_WITH) != 0) {
             throw new ParameterStartWithError(String.format("Parameters should start with %s", USER_PARAMETER_START_WITH));
         }
-        return parameters[0].substring(parameters[0].indexOf(USER_PARAMETER_START_WITH));
+        return parameters[0].substring(USER_PARAMETER_START_WITH.length());
     }
 }

@@ -11,9 +11,9 @@ public class ServerInputManager implements Runnable {
             "  /help             - This help page\n" +
             "  /exit             - Exit from application\n";
 
-    private ConnectionManager connectionManager;
-    public ServerInputManager(ConnectionManager connectionManager) {
-        this.connectionManager = connectionManager;
+    private ServerConnectionManager serverConnectionManager;
+    public ServerInputManager(ServerConnectionManager serverConnectionManager) {
+        this.serverConnectionManager = serverConnectionManager;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class ServerInputManager implements Runnable {
             if (command.equals(AppConfig.HELP_COMMAND)) {
                 System.out.println(helpView);
             } else if (command.equals(AppConfig.EXIT_COMMAND)) {
-                connectionManager.disconnect();
+                serverConnectionManager.disconnect();
             } else {
                 System.out.println(String.format("Unknown command: %s\n", command));
             }
