@@ -25,7 +25,7 @@ public class ClientWriter {
 
     public void sendMessageAndWriteFile(String message) {
         printWriter.println(message);
-        messageToFileWriter.appendFile(String.format("outgoing => %s: %s", user, message));
+        messageToFileWriter.appendFile(String.format("outgoing message => %s: %s", user, message));
     }
 
     public void sendMessage(String message) {

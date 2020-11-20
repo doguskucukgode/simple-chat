@@ -41,3 +41,28 @@ Command Overview
   /exit             - Exit from application
   /send <message>   - Send message for participants
 ```
+
+## Output
+Output will be written in files located in `output` folder. File names are created associated with user names `message_<USER_NAME>.txt` (chat with User1 name output file will be message_User1.txt). 
+
+### Sample Outputs
+message_User1.txt
+```
+User 'User2' is connected..
+outgoing message => User1:  hi there
+outgoing message => User1:  this is me
+incoming message <= User2: hello
+incoming message <= User2: how is it going
+outgoing message => User1:  fine thank you
+outgoing message => User1:  bye
+```
+message_User2.txt
+```
+incoming message <= User1: hi there
+incoming message <= User1: this is me
+outgoing message => User2:  hello
+outgoing message => User2:  how is it going
+incoming message <= User1: fine thank you
+incoming message <= User1: bye
+User 'User1' is gone..
+```
