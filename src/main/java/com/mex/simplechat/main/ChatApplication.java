@@ -32,7 +32,7 @@ class ChatClient implements Runnable {
 }
 
 @Command(name = "server",
-        description = "Starts server for chat application\")")
+        description = "Starts server for chat application")
 class ChatServer implements Runnable {
 
     @Override
