@@ -1,4 +1,4 @@
-# simple_chat
+# Simple Chat 
 Simple chat application with plain text storage for messages written in JAVA. Server should be started before clients. Server application broadcasts messages to other clients via Sockets
 
 
