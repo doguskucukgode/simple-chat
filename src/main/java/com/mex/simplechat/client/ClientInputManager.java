@@ -61,7 +61,7 @@ public class ClientInputManager implements Runnable {
 
     private void sendMessage(String commandString) {
         if (commandString.split(" ").length > 1) {
-            clientWriter.sendMessage(commandString.substring(AppConfig.SEND_COMMAND.length()));
+            clientWriter.sendMessageAndWriteFile(commandString.substring(AppConfig.SEND_COMMAND.length()));
         } else {
             System.out.println("Message missing: %s\n");
         }

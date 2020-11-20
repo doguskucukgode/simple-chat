@@ -1,5 +1,8 @@
 package com.mex.simplechat.client;
 
+import com.mex.simplechat.config.AppConfig;
+import com.mex.simplechat.util.MessageToFileWriter;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,11 +17,13 @@ public class ClientReader implements Runnable {
     private InputStream inputStream;
     private BufferedReader bufferedReader;
     private ClientInputManager clientInputManager;
+    private MessageToFileWriter messageToFileWriter;
 
-
-    public ClientReader(Socket clientSocket, ClientInputManager clientInputManager) {
+    public ClientReader(Socket clientSocket, ClientInputManager clientInputManager,
+                        MessageToFileWriter messageToFileWriter) {
         this.clientSocket = clientSocket;
         this.clientInputManager = clientInputManager;
+        this.messageToFileWriter = messageToFileWriter;
     }
 
     @Override
@@ -34,11 +39,14 @@ public class ClientReader implements Runnable {
             try {
                 String message = bufferedReader.readLine();
                 logger.fine(message);
-                // TODO: Write to file
-
+                if (message.indexOf(AppConfig.MSG_INITIAL) == 0) {
+                    messageToFileWriter.appendFile("incoming message <= " + message.substring(AppConfig.MSG_INITIAL.length()));
+                } else if (message.indexOf(AppConfig.SYS_INITIAL) == 0) {
+                    messageToFileWriter.appendFile(message.substring(AppConfig.SYS_INITIAL.length()));
+                }
             } catch (IOException e) {
-               logger.fine("Socket disconnected exiting from ClientReader");
-               break;
+                logger.fine("Socket disconnected exiting from ClientReader");
+                break;
             }
         }
     }

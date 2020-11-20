@@ -34,7 +34,7 @@ public class UserMessageHandler implements Runnable {
             // get first line with connected username
             user = reader.readLine();
             String userIsConnectedMessage = String.format("User '%s' is connected..", user);
-            server.broadcastMessage(userIsConnectedMessage, this);
+            server.broadcastMessage(AppConfig.SYS_INITIAL + userIsConnectedMessage, this);
             logger.info(userIsConnectedMessage);
             String receivedMessage;
             do {
@@ -42,11 +42,11 @@ public class UserMessageHandler implements Runnable {
                 if (receivedMessage != null) {
                     String messageToBeSent = user + ":" + receivedMessage;
                     logger.info(messageToBeSent);
-                    server.broadcastMessage(messageToBeSent, this);
+                    server.broadcastMessage(AppConfig.MSG_INITIAL + messageToBeSent, this);
                 }
             } while (receivedMessage != null);
             String userIsGoneMessage = String.format("User '%s' is gone..", user);
-            server.broadcastMessage(userIsGoneMessage, this);
+            server.broadcastMessage(AppConfig.SYS_INITIAL + userIsGoneMessage, this);
             logger.info(userIsGoneMessage);
             server.removeUser(this);
 
