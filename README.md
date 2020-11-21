@@ -43,7 +43,7 @@ Command Overview
 ```
 
 ## Output
-Output will be written in files located in `output` folder. File names are created associated with user names `message_<USER_NAME>.txt` (chat with User1 name output file will be message_User1.txt). 
+Output will be written in files located in root folder. File names are created associated with user names `message_<USER_NAME>.txt` (chat with User1 name output file will be message_User1.txt). 
 
 ### Sample Outputs
 message_User1.txt

@@ -7,7 +7,7 @@ public class AppConfig {
     public static final String HELP_COMMAND = "/help";
     public static final String EXIT_COMMAND = "/exit";
     public static final String SEND_COMMAND = "/send";
-    public static final String MESSAGE_FILE = "./output/message_%s.txt";
+    public static final String MESSAGE_FILE = "./message_%s.txt";
     public static final String SYS_INITIAL = "SYS:-";
     public static final String MSG_INITIAL = "MSG:-";
 }
