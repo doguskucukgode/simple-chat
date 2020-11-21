@@ -10,5 +10,4 @@ public class AppConfig {
     public static final String MESSAGE_FILE = "./output/message_%s.txt";
     public static final String SYS_INITIAL = "SYS:-";
     public static final String MSG_INITIAL = "MSG:-";
-
 }

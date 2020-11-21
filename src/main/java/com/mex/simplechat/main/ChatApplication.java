@@ -6,6 +6,9 @@ import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 
+/**
+ * Main class to be run, it can be run as server or client
+ */
 @Command(
         subcommands = { ChatClient.class, ChatServer.class, CommandLine.HelpCommand.class },
         description = "Simple Chat Application, server should be started before the clients")

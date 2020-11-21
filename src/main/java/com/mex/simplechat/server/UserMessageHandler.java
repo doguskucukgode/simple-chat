@@ -35,19 +35,19 @@ public class UserMessageHandler implements Runnable {
             user = reader.readLine();
             String userIsConnectedMessage = String.format("User '%s' is connected..", user);
             server.broadcastMessage(AppConfig.SYS_INITIAL + userIsConnectedMessage, this);
-            logger.info(userIsConnectedMessage);
+            logger.fine(userIsConnectedMessage);
             String receivedMessage;
             do {
                 receivedMessage = reader.readLine();
                 if (receivedMessage != null) {
                     String messageToBeSent = user + ":" + receivedMessage;
-                    logger.info(messageToBeSent);
+                    logger.fine(messageToBeSent);
                     server.broadcastMessage(AppConfig.MSG_INITIAL + messageToBeSent, this);
                 }
             } while (receivedMessage != null);
             String userIsGoneMessage = String.format("User '%s' is gone..", user);
             server.broadcastMessage(AppConfig.SYS_INITIAL + userIsGoneMessage, this);
-            logger.info(userIsGoneMessage);
+            logger.fine(userIsGoneMessage);
             server.removeUser(this);
 
         } catch (IOException e) {

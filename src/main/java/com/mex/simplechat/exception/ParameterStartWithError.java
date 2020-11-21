@@ -6,5 +6,4 @@ public class ParameterStartWithError extends Exception {
     public ParameterStartWithError(String errorMessage) {
         super(errorMessage);
     }
-
 }

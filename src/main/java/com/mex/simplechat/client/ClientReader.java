@@ -12,32 +12,32 @@ import java.util.logging.Logger;
 
 public class ClientReader implements Runnable {
 
-    private Logger logger = Logger.getLogger(String.valueOf(ClientReader.class));
-    private Socket clientSocket;
-    private InputStream inputStream;
+    private final Logger logger = Logger.getLogger(String.valueOf(ClientReader.class));
+    private final Socket clientSocket;
     private BufferedReader bufferedReader;
-    private ClientInputManager clientInputManager;
     private MessageToFileWriter messageToFileWriter;
 
-    public ClientReader(Socket clientSocket, ClientInputManager clientInputManager,
-                        MessageToFileWriter messageToFileWriter) {
+    public ClientReader(Socket clientSocket, MessageToFileWriter messageToFileWriter) {
         this.clientSocket = clientSocket;
-        this.clientInputManager = clientInputManager;
         this.messageToFileWriter = messageToFileWriter;
     }
 
     @Override
     public void run() {
         try {
-            inputStream = clientSocket.getInputStream();
+            InputStream inputStream = clientSocket.getInputStream();
             bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         } catch (IOException e) {
             logger.severe("Cannot get input stream from socket, " + e.getMessage());
         }
 
-        while (!clientInputManager.isExited()) {
+        while (true) {
             try {
                 String message = bufferedReader.readLine();
+                if(message == null) {
+                    logger.fine("Server disconnected");
+                    break;
+                }
                 logger.fine(message);
                 if (message.indexOf(AppConfig.MSG_INITIAL) == 0) {
                     messageToFileWriter.appendFile("incoming message <= " + message.substring(AppConfig.MSG_INITIAL.length()));
@@ -49,5 +49,6 @@ public class ClientReader implements Runnable {
                 break;
             }
         }
+        System.exit(0);
     }
 }

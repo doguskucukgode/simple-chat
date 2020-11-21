@@ -1,7 +1,7 @@
 package com.mex.simplechat.client;
 
-import com.mex.simplechat.exception.ParameterStartWithError;
 import com.mex.simplechat.exception.ParameterCountError;
+import com.mex.simplechat.exception.ParameterStartWithError;
 
 public class ParameterChecker {
 

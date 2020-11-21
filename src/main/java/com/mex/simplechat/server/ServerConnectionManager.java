@@ -30,7 +30,7 @@ public class ServerConnectionManager implements Runnable {
                 clientList.add(userMessageHandler);
 
             } catch (IOException e) {
-                logger.severe("Connection failed");
+                logger.fine("Server is disconnected by user");
             }
         }
     }

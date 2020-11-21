@@ -31,7 +31,7 @@ public class ClientApp {
             ClientInputManager clientInputManager = new ClientInputManager(user, clientSocket, clientWriter);
             Thread clientInputManagerThread = new Thread(clientInputManager);
             clientInputManagerThread.start();
-            Thread clientReader = new Thread(new ClientReader(clientSocket, clientInputManager, messageToFileWriter));
+            Thread clientReader = new Thread(new ClientReader(clientSocket, messageToFileWriter));
             clientReader.start();
             clientInputManagerThread.join();
             clientReader.join();
